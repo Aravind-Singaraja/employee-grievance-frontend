@@ -1,0 +1,20 @@
+<div class="home-container">
+  <h1>Welcome to the Home Page</h1>
+  
+  <div *ngIf="!auth.isLoggedIn()">
+    <p>Please login or register to continue.</p>
+    <button routerLink="/login">Login</button>
+    <button routerLink="/register">Register</button>
+  </div>
+
+  <div *ngIf="auth.isLoggedIn()">
+    <p>You are logged in as: <strong>{{ auth.getUserRole() | titlecase }}</strong></p>
+
+    <button *ngIf="auth.getUserRole() === 'employee'" routerLink="/employee/dashboard">Go to Employee Dashboard</button>
+    <button *ngIf="auth.getUserRole() === 'hr'" routerLink="/hr/dashboard">Go to HR Dashboard</button>
+    <button *ngIf="auth.getUserRole() === 'admin'" routerLink="/superadmin/dashboard">Go to Admin Dashboard</button>
+
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
+
