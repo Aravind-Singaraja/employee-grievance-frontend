@@ -12,22 +12,52 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email = '';
   password = '';
+  message = '';
+  isLoading = false;
 
-  constructor(private localService: LocalService, private auth: AuthService, private router: Router) {}
+  constructor(
+    private localService: LocalService,
+    private auth: AuthService,
+    private router: Router
+  ) {}
+login() {
+  if (!this.email || !this.password) {
+    this.message = 'Email and password are required.';
+    return;
+  }
 
-  login() {
-    this.localService.login(this.email, this.password).subscribe((res: any) => {
-      this.auth.storeToken(res.token);
-      const role = this.auth.getUserRole();
+  this.isLoading = true;
+
+  this.localService.login(this.email, this.password).subscribe({
+    next: (res: any) => {
+      const token = res.token;
+      if (!token) {
+        this.message = 'Token missing in response.';
+        this.isLoading = false;
+        return;
+      }
+
+      this.auth.storeToken(token); // ✅ store the token properly
+      const role = this.auth.getUserRole(); // ✅ decoded from token
 
       if (role === 'employee') {
-        this.router.navigate(['/employee-dashboard']);
+        this.router.navigate(['/employee']);
       } else if (role === 'hr') {
-        this.router.navigate(['/hr-dashboard']);
+        this.router.navigate(['/hr']);
       } else if (role === 'admin') {
-        this.router.navigate(['/admin-dashboard']);
+        this.router.navigate(['/superadmin/admin-dashboard']);
+      } else {
+        this.message = 'Unauthorized role';
       }
-    });
-  }
+
+      this.isLoading = false;
+    },
+    error: (err) => {
+      this.message = err.error?.message || 'Login failed';
+      this.isLoading = false;
+    }
+  });
+}
+
 }
 

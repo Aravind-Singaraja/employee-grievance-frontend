@@ -1,17 +1,16 @@
-.register-container {
+.otp-container {
   max-width: 400px;
   margin: 80px auto;
   padding: 2rem;
-  background: #f8f9fa;
+  background: #f1f1f1;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
   font-family: 'Segoe UI', sans-serif;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 24px;
-  color: #333;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -19,20 +18,19 @@ h2 {
 }
 
 label {
+  font-weight: 600;
   display: block;
   margin-bottom: 6px;
-  font-weight: 600;
 }
 
-input, select {
+input {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  transition: border 0.2s;
 }
 
-input:focus, select:focus {
+input:focus {
   outline: none;
   border-color: #007bff;
 }
@@ -45,21 +43,21 @@ small {
 button {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  font-size: 16px;
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
   cursor: pointer;
 }
 
 button:disabled {
-  background-color: #a0c4ff;
+  background-color: #a0d7a4;
 }
 
 .status-msg {
-  margin-top: 15px;
   text-align: center;
+  margin-top: 15px;
   font-weight: 500;
-  color: #28a745;
+  color: #333;
 }
